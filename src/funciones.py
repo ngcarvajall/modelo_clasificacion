@@ -4,6 +4,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import math
 import numpy as np
+from scipy.stats import chi2_contingency
+
 
 def exploracion_dataframe(dataframe, columna_control):
     """
@@ -243,3 +245,16 @@ def relacion_vr_numericas_problema_categorico(df, vr):
         fig.delaxes(axes[-1])
 
     plt.tight_layout()
+
+def detectar_orden_cat(df, lista_cat, var_respuesta):
+    for categorica in lista_cat:
+        print(f'Estamos evaluando la variable {categorica.upper()}')
+        df_cross_tab = pd.crosstab(df[categorica], df[var_respuesta])
+        display(df_cross_tab)
+
+        chi2, p, dof, excepted = chi2_contingency(df_cross_tab) 
+        
+        if p < 0.05:
+            print(f'Sí tiene orden la variable {categorica}')
+        else:
+            print(f'La variable {categorica} no tiene orden')
