@@ -64,12 +64,12 @@ class AnalisisModelosClasificacion:
 
         # Parámetros predeterminados por modelo
         parametros_default = {
-            "logistic_regression": {
-                'penalty': ['l1', 'l2', 'elasticnet', 'none'],
-                'C': [0.01, 0.1, 1, 10, 100],
-                'solver': ['liblinear', 'saga'],
-                'max_iter': [100, 200, 500]
-            },
+            "logistic_regression": [
+                {'penalty': ['l1'], 'solver': ['saga'], 'C': [0.001, 0.01, 0.1, 1, 10, 100], 'max_iter': [10000]},
+                {'penalty': ['l2'], 'solver': ['liblinear'], 'C': [0.001, 0.01, 0.1, 1, 10, 100], 'max_iter': [10000]},
+                {'penalty': ['elasticnet'], 'solver': ['saga'], 'l1_ratio': [0.1, 0.3, 0.5, 0.7, 0.9], 'C': [0.001, 0.01, 0.1, 1, 10, 100], 'max_iter': [10000]},
+                {'penalty': [None], 'solver': ['lbfgs'], 'max_iter': [10000]}
+            ],
             "tree": {
                 'max_depth': [3, 5, 7, 10],
                 'min_samples_split': [2, 5, 10],
